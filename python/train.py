@@ -106,8 +106,13 @@ def train():
         return
 
     # Split
-    val_size = int(len(full_dataset) * VALIDATION_SPLIT)
+    val_size = max(1, int(len(full_dataset) * VALIDATION_SPLIT))
     train_size = len(full_dataset) - val_size
+
+    if train_size <= 0:
+        print("❌ Not enough samples to create a train/val split. Add more data.")
+        return
+
     train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size])
     val_dataset.dataset.transform = val_transform  # type: ignore
 
