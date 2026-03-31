@@ -4,6 +4,7 @@ import { useState } from "react"
 import useSWR from "swr"
 import { PalazzoCard } from "@/components/palazzo-card"
 import { CreatePalazzoDialog } from "@/components/create-palazzo-dialog"
+import { CleanlinessRankingDialog } from "@/components/cleanliness-ranking-dialog"
 import { PalazzoDetail } from "@/components/palazzo-detail"
 import { Empty } from "@/components/ui/empty"
 import { Spinner } from "@/components/ui/spinner"
@@ -47,7 +48,10 @@ export default function Home() {
               Gestione pulizia vetrate delle tue strutture
             </p>
           </div>
-          <CreatePalazzoDialog onCreated={mutate} />
+          <div className="flex gap-2">
+            <CleanlinessRankingDialog />
+            <CreatePalazzoDialog onCreated={mutate} />
+          </div>
         </header>
 
         {/* Content */}
