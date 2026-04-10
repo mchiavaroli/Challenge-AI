@@ -172,7 +172,7 @@ def train():
         print(f"Epoch [{epoch+1}/{EPOCHS}] "
               f"Train Loss: {train_loss:.4f} | "
               f"Val Loss: {val_loss:.4f} | "
-              f"~MAE: {mae:.1f}")
+              f"~Mean Absolute Error: {mae:.1f}")
 
         # Save best model
         if val_loss < best_val_loss:
