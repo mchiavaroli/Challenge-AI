@@ -17,6 +17,7 @@ import { FieldGroup, Field, FieldLabel } from "@/components/ui/field"
 import { Spinner } from "@/components/ui/spinner"
 import { Upload, ImagePlus, X } from "lucide-react"
 import Image from "next/image"
+import { API_BASE } from "@/lib/api-base"
 
 interface UploadVetrataDialogProps {
   palazzoId: string
@@ -71,7 +72,7 @@ export function UploadVetrataDialog({ palazzoId, onUploaded }: UploadVetrataDial
       // Upload image
       const formData = new FormData()
       formData.append("file", file)
-      const uploadRes = await fetch("/api/upload", {
+      const uploadRes = await fetch(`${API_BASE}/upload`, {
         method: "POST",
         body: formData,
       })
@@ -80,7 +81,7 @@ export function UploadVetrataDialog({ palazzoId, onUploaded }: UploadVetrataDial
       const { url } = await uploadRes.json()
 
       // Create vetrata record
-      const res = await fetch(`/api/palazzi/${palazzoId}/vetrate`, {
+      const res = await fetch(`${API_BASE}/palazzi/${palazzoId}/vetrate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, description, image_url: url }),

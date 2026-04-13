@@ -10,6 +10,7 @@ import { UploadVetrataDialog } from "@/components/upload-vetrata-dialog"
 import { ImageViewer } from "@/components/image-viewer"
 import { ArrowLeft, Building2, MapPin, ImageIcon, SparklesIcon } from "lucide-react"
 import type { Palazzo, Vetrata } from "@/lib/types"
+import { API_BASE } from "@/lib/api-base"
 
 function getCleanlinessColor(value: number): string {
   if (value <= 25) return "from-red-500 to-red-600"
@@ -48,7 +49,7 @@ interface PalazzoDetailProps {
 
 export function PalazzoDetail({ palazzo, onBack }: PalazzoDetailProps) {
   const { data: vetrate, error, isLoading, mutate } = useSWR<Vetrata[]>(
-    `/api/palazzi/${palazzo.id}/vetrate`,
+    `${API_BASE}/palazzi/${palazzo.id}/vetrate`,
     fetcher
   )
   const [selectedVetrata, setSelectedVetrata] = useState<Vetrata | null>(null)
@@ -61,7 +62,7 @@ export function PalazzoDetail({ palazzo, onBack }: PalazzoDetailProps) {
     setIsCalculating(true)
     setCleanlinessLevel(null)
     try {
-      const res = await fetch(`/api/palazzi/${palazzo.id}/cleanliness`, {
+      const res = await fetch(`${API_BASE}/palazzi/${palazzo.id}/cleanliness`, {
         method: "POST",
       })
       if (res.ok) {
@@ -82,7 +83,7 @@ export function PalazzoDetail({ palazzo, onBack }: PalazzoDetailProps) {
   const handleDelete = async (id: string) => {
     if (!confirm("Sei sicuro di voler eliminare questa vetrata?")) return
 
-    await fetch(`/api/vetrate/${id}`, { method: "DELETE" })
+    await fetch(`${API_BASE}/vetrate/${id}`, { method: "DELETE" })
     mutate()
   }
 

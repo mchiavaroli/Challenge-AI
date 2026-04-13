@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { FieldGroup, Field, FieldLabel } from "@/components/ui/field"
 import { Spinner } from "@/components/ui/spinner"
 import { Plus } from "lucide-react"
+import { API_BASE } from "@/lib/api-base"
 
 interface CreatePalazzoDialogProps {
   onCreated: () => void
@@ -34,7 +35,7 @@ export function CreatePalazzoDialog({ onCreated }: CreatePalazzoDialogProps) {
 
     setLoading(true)
     try {
-      const res = await fetch("/api/palazzi", {
+      const res = await fetch(`${API_BASE}/palazzi`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, description, address }),

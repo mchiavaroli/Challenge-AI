@@ -190,6 +190,12 @@ uvicorn main:app --reload --port 8000
 
 ---
 
+## Avvio web app
+
+```bash
+pnpm dev
+```
+
 ## Struttura dei file
 
 ```

@@ -10,17 +10,18 @@ import { Empty } from "@/components/ui/empty"
 import { Spinner } from "@/components/ui/spinner"
 import { Building2 } from "lucide-react"
 import type { Palazzo } from "@/lib/types"
+import { API_BASE } from "@/lib/api-base"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Home() {
-  const { data: palazzi, error, isLoading, mutate } = useSWR<Palazzo[]>("/api/palazzi", fetcher)
+  const { data: palazzi, error, isLoading, mutate } = useSWR<Palazzo[]>(`${API_BASE}/palazzi`, fetcher)
   const [selectedPalazzo, setSelectedPalazzo] = useState<Palazzo | null>(null)
 
   const handleDelete = async (id: string) => {
     if (!confirm("Sei sicuro di voler eliminare questo palazzo e tutte le sue vetrate?")) return
 
-    await fetch(`/api/palazzi/${id}`, { method: "DELETE" })
+    await fetch(`${API_BASE}/palazzi/${id}`, { method: "DELETE" })
     mutate()
   }
 

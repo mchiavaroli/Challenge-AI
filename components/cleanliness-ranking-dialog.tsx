@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { Trophy, Medal, MapPin, ImageIcon } from "lucide-react"
+import { API_BASE } from "@/lib/api-base"
 
 interface RankingItem {
   id: string
@@ -54,7 +55,7 @@ export function CleanlinessRankingDialog() {
     setError(null)
     setRanking([])
     try {
-      const res = await fetch("/api/palazzi/cleanliness", { method: "POST" })
+      const res = await fetch(`${API_BASE}/palazzi/cleanliness`, { method: "POST" })
       if (res.ok) {
         const data = await res.json()
         setRanking(data)
