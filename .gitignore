@@ -13,6 +13,4 @@ next.user-config.*
 # Common ignores
 node_modules
 .next/
-.DS_Store
-python/dataset/*
-python/weights/*
+.DS_StoreS
